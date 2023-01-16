@@ -1,0 +1,24 @@
+﻿@model List<CheckOutViewModel>
+
+@foreach (var item in Model)
+{
+    <div class=" single-cart-block ">
+        <div class="cart-product">
+            <a asp-action="detail" asp-controller="home" asp-route-id="@item.Book.Id" class="image">
+                @if ((item.Book.BookImages?.FirstOrDefault(x => x.IsPoster == true)) is not null)
+                {
+                    <img src="~/uploads/books/@(item.Book.BookImages.FirstOrDefault(x=>x.IsPoster==true).Name)" alt="Book">
+                }
+            </a>
+            <div class="content">
+                <h3 class="title">
+                    <a asp-action="detail" asp-controller="home" asp-route-bookid="@item.Book.Id">
+                        @item.Book.Name
+                    </a>
+                </h3>
+                <p class="price"><span class="qty">@item.Count ×</span> £@(item.Book.SalePrice*(1-item.Book.DiscountPrice/100))</p>
+                @*<button class="cross-btn delete-item"><i class="fas fa-times"></i></button>*@
+            </div>
+        </div>
+    </div>
+}
